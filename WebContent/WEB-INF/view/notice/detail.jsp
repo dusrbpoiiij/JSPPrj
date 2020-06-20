@@ -1,43 +1,5 @@
-<%@page import="java.util.Date" %>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
-<%
-
-	int id = Integer.parseInt(request.getParameter("id"));
-	String url = "jdbc:mysql://192.168.0.33/practice";
-	String sql = "SELECT * FROM NOTICE WHERE ID=?";
-	
-	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection(url, "mysqladmin", "pantal90");
-	PreparedStatement st = con.prepareStatement(sql);
-	st.setInt(1, id);
-    ResultSet rs = st.executeQuery();
-    
-    rs.next();
-
-	String title = rs.getString("TITLE"); 
-	Date regdate = rs.getDate("REGDATE"); 
-	String writeId = rs.getString("WRITER_ID"); 
-	int hit = rs.getInt("HIT"); 
-	String files = rs.getString("FILES"); 
-	String content = rs.getString("CONTENT"); 
-
-
-	rs.close();
-	st.close();
-    con.close();
-    
-%>
-    
-
 
 <!DOCTYPE html>
 <html>
@@ -188,31 +150,31 @@
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=title %></td>
+									<td class="text-align-left text-indent text-strong text-orange" colspan="3">${n.title}</td>
 								</tr>
 								<tr>
 									<th>작성일</th>
-									<td class="text-align-left text-indent" colspan="3"><%=regdate %>	</td>
+									<td class="text-align-left text-indent" colspan="3">${n.regdate}	</td>
 								</tr>
 								<tr>
 									<th>작성자</th>
-									<td><%=writeId %></td>
+									<td>${n.writeId}</td>
 									<th>조회수</th>
-									<td><%=hit %></td>
+									<td>${n.hit}</td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
-									<td colspan="3"><%=files %></td>
+									<td colspan="3">${n.files}</td>
 								</tr>
 								<tr class="content">
-									<td colspan="4"><%=content %></td>
+									<td colspan="4">${n.content}</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					
 					<div class="margin-top text-align-center">
-						<a class="btn btn-list" href="list.jsp">목록</a>
+						<a class="btn btn-list" href="list">목록</a>
 					</div>
 					
 					<div class="margin-top">
