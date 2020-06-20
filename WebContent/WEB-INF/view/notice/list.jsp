@@ -183,7 +183,7 @@
 						pageContext.setAttribute("n", n);
 					
 					%>--%>
-					<c:forEach  var="n" items="${list}">
+					<c:forEach  var="n" items="${list}" >
 					<tr>
 						<td>${n.id }</td>
 						<td class="title indent text-align-left"><a href="detail?id=${n.id }">${n.title }</a></td>
@@ -191,7 +191,6 @@
 						<td>${n.regdate }</td>
 						<td>${n.hit }</td>
 					</tr>
-					
 					</c:forEach>
 					
 					<%--} --%>
@@ -208,20 +207,35 @@
 			<div class="margin-top align-center pager">	
 		
 	<div>
+	
+	
+	<!-- Page 번호 설정하는 칸  -->
+	<c:set var="page" value="${(param.p == null) ? 1: param.p }" />  <!-- param은 get으로 던져준 값 -->
+	<c:set var="startNum" value="${page-(page-1)%5 }" />
+	<c:set var="lastNum" value="23" />
 		
-		
-		<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
-		
+		<c:if test="${startNum-1 > 0}">
+			<a href="?p=${startNum-1}&t=&q=" class="btn btn-prev" >이전</a>
+		</c:if>
+		<c:if test="${startNum-1 <= 0}">
+			<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
+		</c:if>
 	</div>
+
 	<ul class="-list- center">
-		<li><a class="-text- orange bold" href="?p=1&t=&q=" >1</a></li>
-				
+		<c:forEach begin="0" end="4" var="i">
+		<c:if test="${startNum+i <= lastNum }">
+			<li><a class="-text- orange bold" href="?p=${startNum+i}&t=&q=" >${startNum+i}</a></li>
+		</c:if>
+		</c:forEach>
 	</ul>
 	<div>
-		
-		
-			<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
-		
+			<c:if test="${startNum+5 < lastNum}">
+				<a href="?p=${startNum+5}&t=&q=" class="btn btn-next" >다음</a>
+			</c:if>
+			<c:if test="${startNum+5 >= lastNum }">
+				<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+			</c:if>
 	</div>
 	
 			</div>
