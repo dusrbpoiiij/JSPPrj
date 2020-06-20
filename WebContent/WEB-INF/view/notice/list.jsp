@@ -194,7 +194,6 @@
 					
 					</c:forEach>
 					
-							sdf
 					<%--} --%>
 
 					</tbody>
