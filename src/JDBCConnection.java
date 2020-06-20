@@ -18,18 +18,18 @@ public class JDBCConnection {
             // mysql, oracle 등 각 벤더사 마다 클래스 이름이 다르다.
             // mysql은 "com.mysql.jdbc.Driver"이며, 이는 외우는 것이 아니라 구글링하면 된다.
             // 참고로 이전에 연동했던 jar 파일을 보면 com.mysql.jdbc 패키지에 Driver 라는 클래스가 있다.
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
             System.out.println("zxc");
             // 2. 연결하기
             // 드라이버 매니저에게 Connection 객체를 달라고 요청한다.
             // Connection을 얻기 위해 필요한 url 역시, 벤더사마다 다르다.
             // mysql은 "jdbc:mysql://localhost/사용할db이름" 이다.
-            String url = "jdbc:mysql://docker-mysql-test.ciuoudyx3jki.ap-northeast-2.rds.amazonaws.com/TEST";
+            String url = "jdbc:mysql://192.168.0.33/practice";
 
             // @param  getConnection(url, userName, password);
             // @return Connection
-            conn = DriverManager.getConnection(url, "user", "pantal90");
+            conn = DriverManager.getConnection(url, "mysqladmin", "pantal90");
             System.out.println("연결 성공");
 
         }

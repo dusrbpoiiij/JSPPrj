@@ -28,7 +28,7 @@ input {
 		<form action="calculator" method="post">
 			<table>
 				<tr>
-					<td class="output" colspan="4">${3+4}</td>
+					<td class="output" colspan="4">${3+4}안녕하세요</td>
 				</tr>
 				<tr>
 					<td><input type="submit" name="operator" value="CE" /></td>
