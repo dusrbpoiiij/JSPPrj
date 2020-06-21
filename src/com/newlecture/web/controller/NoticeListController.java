@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,15 +37,17 @@ public class NoticeListController extends HttpServlet{
 			Statement st = con.createStatement();
 		    ResultSet rs = st.executeQuery(sql);
 
-		    
+		    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 			while(rs.next()) { 
 				int id = rs.getInt("ID");
 				String title = rs.getString("TITLE"); 
-				Date regdate = rs.getDate("REGDATE"); 
+				Date regdate = transFormat.parse(rs.getString("REGDATE"));   // 시간이 안나옴 
 				String writeId = rs.getString("WRITER_ID"); 
 				int hit = rs.getInt("HIT"); 
 				String files = rs.getString("FILES"); 
 				String content = rs.getString("CONTENT"); 
+								
 				
 				Notice notice = new Notice(
 						id,
@@ -71,6 +75,9 @@ public class NoticeListController extends HttpServlet{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		request.setAttribute("list", list);
@@ -79,5 +86,10 @@ public class NoticeListController extends HttpServlet{
 		request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(request, response);
 		
 		    
+	}
+
+	private Date transFormat(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
